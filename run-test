@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+
+#this is script that will create and tear down
+
+from sys import argv
+import os, shutil
+from pathlib import Path
+
+def print_usage():
+    print('Usage:')
+    print('run-test [setup, teardown]')
+    exit(1)
+
+if len(argv) != 2:
+    print_usage()
+
+if argv[1] not in ['setup', 'teardown']:
+    print_usage()
+
+link_path1 = "test/edu/bvu/cs/DevOps.java"
+link_path2 = "test/edu/bvu/cs/DevOpsMain.java"
+link_paths = [link_path1, link_path2]
+
+if argv[1] == 'setup':
+    # must overwrite if already exist
+    # say overwriteing
+    # say writing tests if not
+
+    dirpath = Path('test/edu/bvu/cs')
+
+    if dirpath.exists():
+        print('Overwriting test directory...')
+        shutil.rmtree(dirpath)
+    else:
+        print('Creating test directory...')
+
+    dirpath.mkdir(parents=True)
+
+
+    message1 = '''public class DevOps {
+            public DevOps() {
+            }
+        }'''
+    with open(link_path1, 'w') as outf:
+        outf.write(message1)
+
+    message2 = '''public class DevOpsMain {
+            public static void main(String[] args) {
+                DevOps dev = new DevOps();
+            }
+        }'''
+    with open(link_path2, 'w') as outf:
+        outf.write(message2)
+
+# is teardown
+else:
+    testdir = 'test/'
+    if not os.path.exists(testdir):
+        print('The test directory does not exist so it cannot be torn down')
+        exit(1)
+    print('Tearing down test directory...')
+    shutil.rmtree(testdir)
+    #for link in link_paths:
+     #   if os.path.exists(link):
+      #      os.remove(link)
+
+
