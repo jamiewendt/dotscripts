@@ -2,7 +2,7 @@
 
 ## Assignment in Development & Operations
 
-To install, type these commans starting in your home directory:
+To install, type these commands starting in your home directory:
 
 ```
 git clone https://github.com/jamiewendt/dotscripts .scripts
